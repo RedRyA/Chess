@@ -1,0 +1,139 @@
+
+h1{
+    text-align: center;
+}
+
+.inline{
+    display: flex;
+    flex: auto;
+    justify-content: center;
+   
+  
+}
+
+/* Dropdown menu  */
+.dropbtn {
+    background-color: #04AA6D;
+    color: white;
+  width: 100px;
+  height: fit-content;
+    font-size: 16px;
+    border: none;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+   
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 5px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {background-color: #ddd;}
+  
+  .dropdown:hover .dropdown-content {display: block;}
+  
+  .dropdown:hover .dropbtn {background-color: #3e8e41;}
+/* End Dropdown menu */
+
+
+table tr:nth-child(odd) td:nth-child(even) {
+  background: rgb(255, 0, 0);
+}
+table tr:nth-child(even) td:nth-child(odd) {
+  background: rgb(255, 0, 0);
+}
+
+.chessBoard{
+  margin-left: auto;
+  margin-right: auto;
+ 
+}
+
+table tr td {
+  width: 45px;
+  height: 45px;
+  border: solid #000 1px;
+ margin-top: 10px;
+ text-align: center;
+} 
+
+
+
+
+
+
+ 
+.button {
+    width: fit-content;
+    padding: 5px;
+    margin:5px;
+    border: 2px solid blue;
+}
+
+.wrapper{
+ 
+  display: grid;
+   width: fit-content;
+   height: fit-content;
+   margin-left: auto;
+   margin-right: auto;
+ }
+ #white-rook-a1 {
+  
+  
+   background-color: red;
+   width: fit-content;
+ }
+/* Letter and numbers align */
+#letters{
+
+  width: 400px;
+  text-align: center;
+color: #3e8e41;
+
+letter-spacing: 16px;
+background-color: rgb(83, 30, 30);
+
+  
+}
+#numbers{
+position: relative;
+right: 22px;
+  background-color:  rgb(83, 30, 30);
+  height: 400px;
+  width: fit-content;
+  text-align: center;
+
+
+color: #3e8e41;
+writing-mode: vertical-rl;
+letter-spacing: 16px;;
+text-align: center;
+
+}
+
+.black{
+  size:100px;
+  
+}
+.white{
+  size: 50px
+  
+}
+.change{
+  background-color: #04AA6D;
+}
