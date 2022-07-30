@@ -1,4 +1,3 @@
-
 h1{
     text-align: center;
 }
@@ -92,48 +91,13 @@ table tr td {
    margin-left: auto;
    margin-right: auto;
  }
- #white-rook-a1 {
-  
-  
-   background-color: red;
-   width: fit-content;
- }
-/* Letter and numbers align */
-#letters{
 
-  width: 400px;
-  text-align: center;
-color: #3e8e41;
 
-letter-spacing: 16px;
-background-color: rgb(83, 30, 30);
+
+
 
   
-}
-#numbers{
-position: relative;
-right: 22px;
-  background-color:  rgb(83, 30, 30);
-  height: 400px;
-  width: fit-content;
-  text-align: center;
 
-
-color: #3e8e41;
-writing-mode: vertical-rl;
-letter-spacing: 16px;;
-text-align: center;
-
-}
-
-.black{
-  size:100px;
-  
-}
-.white{
-  size: 50px
-  
-}
-.change{
-  background-color: #04AA6D;
+.change:hover{
+ background-color: #04AA6D;
 }
