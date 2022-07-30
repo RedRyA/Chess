@@ -1,85 +1,182 @@
-
-var whitePieces=document.querySelectorAll("p")
-var blackPieces=document.querySelectorAll("span")
-var table=document.querySelector("#chessBoard")
-var cells=document.querySelectorAll(".cell")
-
-var initial=[{index:0, id:'br-a8'}, {index:1, id:'bkn-b8'}, {index:2, id:'bb-c8'}, 
-                {index:3,id:'bq-d8'},{index:4,id:'bk-e8'}, {index:5,id:'bb-f8'}, 
-                {index:6,id:'bkn-g8'}, {index:7,id:'br-h8'},{index:8,id:'bp-a7'},{index:9,id:'bp-b7'},
-                {index:10,id:'bp-c7'},{index:11,id:'bp-d7'},{index:12,id:'bp-e7'},{index:13,id:'bp-f7'},
-                {index:14,id:'bp-g7'},{index:15,id:'bp-h7'},{index:16,id:null}, {index:17,id:null}, 
-                {index:18,id:null}, {index:19,id:null}, {index:20,id:null}, {index:21,id:null}, 
-                {index:22,id:null}, {index:23,id:null}, {index:24,id:null}, {index:25,id:null},
-                {index:26,id:null},{index:27,id: null}, {index:28,id:null},{index:29,id: null}, 
-                {index:30,id:null},{index:1,id:null}, {index:32,id:null}, {index:33,id:null}, 
-                {index:34,id:null}, {index:35,id:null}, {index:36,id:null},{index:37,id: null},
-                {index:38,id: null},{index:39,id: null},{index:40,id:null}, {index:41,id:null}, 
-                {index:42,id:null}, {index:43,id:null}, {index:44,id:null}, {index:45,id:null}, 
-                {index:47,id:null}, {index:48,id:null}, {index:49,id:'wp-a2'},{index:50,id:'wp-b2'},
-                {index:51,id:'wp-c2'},{index:52,id:'wp-d2'},{index:53,id:'wp-e2'},{index:54,id:'wp-f2'},
-                {index:55,id:'wp-g2'},{index:56,id:'wp-h2'}, {index:57,id:'wr-a1'},{index:58,id:'wkn-b1'},
-                {index:59,id:'wb-c1'},{index:60,id:'wq-d1'},{index:61,id:'wk-e1'},{index:62,id:'wb-f1'},
-                {index:63,id:'wkn-g1'},{index:64,id:'wr-h1' }]
+var whitePieces = document.querySelectorAll(".white")
+var blackPieces = document.querySelectorAll(".black")
+var table = document.querySelectorAll("td")
+var cells = document.querySelectorAll(".cell")
 
 
 
- 
-      //initial dictionary will be updated in pieceUpdate()
-var selectedPiece={
-  index:0,
-  id:"wb-c1"
-  
-  
+
+var initial = [
+{ id: 'br-a8' }, { id: 'bkn-b8' }, { id: 'bb-c8' },{ id: 'bq-d8' }, 
+{ id: 'bk-e8' }, { id: 'bb-f8' },{ id: 'bkn-g8' }, { id: 'br-h8' }, 
+
+{ id: 'bp-a7' }, { id: 'bp-b7' }, { id: 'bp-c7' },{ id: 'bp-d7' }, 
+{ id: 'bp-e7' }, { id: 'bp-f7', },{ id: 'bp-g7' }, { id: 'bp-h7', },
+
+{ id: null }, { id: null }, { id: null }, { id: null },
+ { id: null }, { id: null },{ id: null }, { id: null },
+
+  { id: null }, { id: null }, { id: null }, { id: null }, 
+{ id: null },{ id: null },{ id: null },{ id: null },
+
+{ id: null },{ id: null },{ id: null },{ id: null },
+{ id: null },{ id: null },{ id: null },{ id: null },
+
+{ id: null },{ id: null },{ id: null },{ id: null },
+{ id: null },{ id: null },{ id: null },{id: null},
+
+{ id: 'wp-a2' },{ id: 'wp-b2' },{ id: 'wp-c2' },{ id: 'wp-d2' },
+{ id: 'wp-e2' },{ id: 'wp-f2' },{ id: 'wp-g2' },{ id: 'wp-h2' },
+
+{ id: 'wr-a1' },{ id: 'wkn-b1' },{ id: 'wb-c1' },{ id: 'wq-d1' },
+{ id: 'wk-e1' },{ id: 'wb-f1' },{ id: 'wkn-g1' }, { id: 'wr-h1' }
+
+]
+var cellArray=[cells]
+
+var checkAgainst=structuredClone(initial)
+
+console.log(table)
+
+
+
+function initialFind(element) {
+	let pieceSelect = element.target.id
+	console.log(pieceSelect)
+	let initialFind = initial.find(initial => initial.id === pieceSelect);
+	let pieceIndex = initial.indexOf(initialFind)
+
+	let pI = pieceIndex
+	let pS=pieceSelect
+	selectedPiece(pS, pI)
+}
+// calls to proper function for each piece
+function selectedPiece(pieceSelect, pI) {
+	let pS=pieceSelect
+	if (pieceSelect.includes('wp') || pieceSelect.includes('bp')) {
+		pawn(pI, pS)
+
+	} else if (pieceSelect.includes('wr') || pieceSelect.includes('br')) {
+		rook(pI, pS)
+
+	} else if (pieceSelect.includes("wkn") || pieceSelect.includes('bkn')) {
+		knight(pI, pS)
+
+	} else if (pieceSelect.includes('wb') || pieceSelect.includes('bb')) {
+		bishop(pI, pS)
+
+	} else if (pieceSelect.includes('wq') || pieceSelect.includes('bq')) {
+		queen(pI, pS)
+
+	} else if (pieceSelect.includes("wk-") || pieceSelect.includes('bk-')) {
+		king(pI, pS)
+
+	} else {
+		alert("That's not a piece")
+	}
+
+
+
+}
+//initial dictionary will be updated in pieceUpdate()
+
+
+
+
+
+function backgroundChange() {
+	$().css("background-color", "green")
+
+}
+// Piece RULES!! //
+
+function pawn(pI, pS) {
+
+	
+	console.log(pS,pI)
+	//selects actual HTML element //
+		let deletePiece=document.getElementById(pS)
+		let pieceToMove=document.getElementById(pS).innerHTML
+		for (i in pieceToMove){
+			console.log(pieceToMove[i])
+		}
+		console.log(deletePiece)
+		console.log(pieceToMove)
+		
+		// checks if piece is black or white
+	if (pS.includes('b')) {
+		// variable to store space in front of 
+		let moveUp = pI + 8
+		//will eventually make takePiece
+		let takePiece = [7, 9]
+		//
+		if (initial[moveUp].id === null) {
+			cells[moveUp].addEventListener('click',()=>{
+				
+				cells[moveUp].innerHTML=deletePiece
+				initial[pI]={id:null}
+				initial[moveUp]={id:pS}
+				console.log(initial)
+			}
+			)
+			
+			
+				
+			}else if (pS.includes('w')) {
+
+			}
+
+		
+	}
+
+	function rook(pI, pS) {
+
+		console.log('rook' + pI + pS)
+	}
+
+	function knight(pI) {
+
+		console.log('knight ' + pI)
+	}
+	function bishop(pI) {
+
+		console.log('bishop' + pI)
+	}
+	function queen(pI) {
+
+		console.log('queen ' + pI)
+	}
+
+	function king(pI) {
+
+		console.log('king ' + pI)
+	}
+
+
+	// Special moves
+
+	function enPassant() {
+
+	}
+
+	function castle() {
+
+	}
+
+	function touchdown() {
+
+	}
 }
 
-function backgroundChange(){
-  $().css("background-color","green")
-
-}
-// updates selectedPiece dict
-function pieceUpdate(){
-  const piece=event.target.id
- console.log(piece)
-console.log(initial.find(element =>element.id===piece))
- 
- 
-
-  }
-  
-   //console.log(initial.find(pieceUpdate))
+blackPieces.forEach(element => {
+	element.addEventListener('click', initialFind)
+})
 
 
- 
-  
+
+whitePieces.forEach(element => { element.addEventListener("click", initialFind) });
 
 
-function pieceContainsText(selectedPiece){
- if(selectedPiece.PIECE_ID.includes("bp")|| selectedPiece.PIECE_ID.includes("wp")){
-   pawn(selectedPiece)
- }
 
-}
 
-  
-  
-  function pawn(selectedPiece){
-  if (selectedPiece.PIECE_){
-pass
-  }
 
-  }
-blackPieces.forEach(function(){
- 
-  document.addEventListener("click",pieceUpdate)
-  
-  
-});
-
-whitePieces.forEach(function(){
-  
-  document.addEventListener("click",pieceUpdate)
-  
- // document.addEventListener("mouseover",backgroundChange)//
- 
-});
