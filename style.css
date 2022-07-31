@@ -71,8 +71,15 @@ table tr td {
 } 
 
 
-
-
+table tr:nth-child(odd):hover td:nth-child(even):hover{
+  background-color: #04AA6D;
+}
+table tr:nth-child(even):hover td:nth-child(odd):hover {
+  background:#04AA6D
+}
+  .cell:hover{
+    background-color: #04AA6D;
+  }
 
 
  
