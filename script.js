@@ -2,11 +2,13 @@
 
 var cells = document.querySelectorAll(".cell")
 var whitePieces = document.querySelectorAll(".white")
+
 var blackPieces = document.querySelectorAll(".black")
 
-
 // r=ROOK,n=Knight,i=Bishop,q=Queen,k=King,p=Pawn
-var trackingArray = [
+var trackingArray = 
+
+[
 	{ id: 'br-a8' }, { id: 'bn-b8' }, { id: 'bi-c8' }, { id: 'bq-d8' },
 	{ id: 'bk-e8' }, { id: 'bi-f8' }, { id: 'bn-g8' }, { id: 'br-h8' },
 
@@ -47,17 +49,42 @@ var checkAgainst = structuredClone(trackingArray)
 // TRY TO CHANGE THE HTML WITH DOM. 
 
 
+function removeAddClass(element){
+	
+	let clickChessSquare=""
+	let removeClass=""
 
-function trackingArrayFind(element) {
+clickChessSquare = (document.getElementById(element.target['id']))
+console.log(clickChessSquare['id'])
+ removeClass=document.getElementsByClassName('select')
+if(removeClass.length>0){
+	removeClass[0].remove('select')
+
+}else{
+	element.classList.add("select")
+}
+
+
+trackingArray(clickChessSquare)
+
+}
+
+function trackingArrayFind(clickChessSquare) {
 	// cells Event Listener id select
-	let clickChessSquare=[]
+	
+
 	let clickChessSquareID=""
 	let htmlPieceIndex=1
 	let pieceTrackArr=[]
 	let rowLimit=1
 	let colLimit=""
 
-	 clickChessSquare = (document.getElementById(element.target['id']))
+
+
+		
+	 
+	 
+	 console.log(clickChessSquare)
 	 clickChessSquareID = clickChessSquare['id']
 
 
@@ -90,6 +117,7 @@ function selectedPiece(cCSID, cCS,htmlNDex, pTrackr, rowLimit, colLimit) {
 	let parsePiece = 1
 	for (i in pTrackr) {
 		parsePiece = pTrackr[i]
+		console.log(parsePiece+" PP")
 
 		switch (parsePiece) {
 			// pawn
@@ -111,26 +139,26 @@ function selectedPiece(cCSID, cCS,htmlNDex, pTrackr, rowLimit, colLimit) {
 			case "n":
 
 				console.log("KNIGHT TIME")
-				knight(cCSID, cCS,
+				knight (cCSID, cCS,
 					htmlNDex, pTrackr, rowLimit, colLimit)
 				break;
 
 			//bishop
 			case "i":
 				console.log("Bishop")
-				bishop(cCSID, cCS,
+				bishop (cCSID, cCS,
 					htmlNDex, pTrackr, rowLimit, colLimit)
 				break;
 			//queen
 			case "q":
 				console.log("QUEEN")
-				queen(cCSID, cCS,
+				queen (cCSID, cCS,
 					htmlNDex, pTrackr, rowLimit, colLimit)
 				break;
 			//king
 			case "k":
 				console.log("King me!")
-				king(cCSID, cCS,
+				king (cCSID, cCS,
 					htmlNDex, pTrackr, rowLimit, colLimit)
 				break;
 		}
@@ -148,13 +176,8 @@ function PIECEMOVR() {
 
 	}
 }
-function backgroundChange() {
-	$().css("background-color", "green")
 
-}
-// Piece RULES!! //
-
-function pawn(cCSID, cCS,htmlNDex, pTrackr, rowLimit, colLimit) {
+function pawn (cCSID, cCS,htmlNDex, pTrackr, rowLimit, colLimit) {
 
 	console.log("Main Piece ID: " + cCSID, " Tracking Array: " + pTrackr
 		, " Row Limit: " + rowLimit, " Col Limit: " + colLimit)
@@ -212,7 +235,9 @@ function pawn(cCSID, cCS,htmlNDex, pTrackr, rowLimit, colLimit) {
 
 		let blackMoveTwo = {
 			index: trackingArray[htmlNDex]['id'] === checkAgainst[htmlNDex]['id'],
-			spaceFree: trackingArray[htmlNDex + 8]['id'] == null && trackingArray[htmlNDex + 16]['id'] == null
+
+			spaceFree: trackingArray[htmlNDex + 8]['id'] == null && trackingArray
+            [htmlNDex + 16]['id'] == null
 			//+8 and +plus 16 spaces are free
 		}
 
@@ -269,10 +294,10 @@ function pawn(cCSID, cCS,htmlNDex, pTrackr, rowLimit, colLimit) {
 
 
 
-				} else {
+				} 
 
 
-				}
+				
 			}
 		}
 
@@ -291,13 +316,13 @@ function pawn(cCSID, cCS,htmlNDex, pTrackr, rowLimit, colLimit) {
 				trackingArray[htmlNDex] = { id: null }
 				trackingArray[moveUpWhite - 8] = { id: pTrackr }
 
-
 			});
+
 		} if (trackingArray[moveUpWhite]['id'] === null) {
 
 			document.getElementById(whiteMoveId).addEventListener('click', () => {
 				document.getElementById(cCSID).innerHTML = " "
-				cells[moveUpWhite].innerHTML = addOrDeleteHTML
+				cells[moveUpWhite].appendChild(whiteMoveId)
 				trackingArray[htmlNDex] = { id: null }
 				trackingArray[moveUpWhite] = { id: pTrackr }
 
@@ -312,8 +337,13 @@ function pawn(cCSID, cCS,htmlNDex, pTrackr, rowLimit, colLimit) {
 
 
 
-function rook(cCSID, cCS,
+function rook (cCSID, cCS,
 	htmlNDex, pTrackr, rowLimit, colLimit) {
+
+
+console.log("Main Piece ID: "+cCSID," Tracking Array: "+ pTrackr
+	  ," Row Limit: " +rowLimit ," Col Limit: "+ colLimit)
+
 
 /// CrEATE ADD AND DELETE HTML FUNCTION
 	let addOrDeleteHTML = document.getElementById(cCSID).innerHTML
@@ -323,45 +353,37 @@ function rook(cCSID, cCS,
 	let rowCorrectMoves
 
 
-
-
-	console.log("Main Piece ID: "+cCSID," Tracking Array: "+ pTrackr
-	  ," Row Limit: " +rowLimit ," Col Limit: "+ colLimit)
+	
 	///////////////Will EVENTUALLY MAKE THIS A FUNCTION TO HANDLE ALL PIECE MOVES////
 	// rowLimit is  the number of the row I'm currently on
 	// colLimit is the letter of the column I'm on
 	// USE ROW NUMBERS AND LETTERS TO SET LIMITS
 	// eliminate illegal moves
-	/*  This will eliminate moves involving player pieces*/
+	/*  This will eliminate moves involving  friendly pieces*/
 
 	for (r in rows) {
-		let testAdd = [rows[r]]
-
+	 possMoves= trackingArray[Number([rows[r]])+ htmlNDex]	
+	
 		//Gets the pieces on the squares and the null spaces
 		// use TrackArrIndex to compare to cell
-		 trackArrIndex = Number(testAdd) + htmlNDex
+
+		
+		 console.log(possMoves)
 
 		 removeIllegalRows = cells[trackArrIndex]
 		 possMoves = trackingArray[trackArrIndex]
+            
+      //  }
+    
+			
 
-		if (removeIllegalRows != undefined) {
-			 rowCorrectMoves = removeIllegalRows
-			console.log(rowCorrectMoves['id'])
-
-			for (rem in rowCorrectMoves) {
-				//Based on Tracking ARRAY
-				let ROOK_MOVES = rowCorrectMoves[rem]
-
-
-			}
-
-
-		}
+	}
+		
 
 		// If rows and cols are illegal to move to// 
 		// Will make this the first function roo
 
-	}
+	
 
 
 
@@ -413,11 +435,24 @@ function castle() {
 	}
 
 }
+let playerTurn=true
+
+if (playerTurn==true){
+	blackPieces.forEach(element =>{
+		
+		element.addEventListener('click',removeAddClass)
+	})
+} else{
+	whitePieces.forEach(element => {
+		element.addEventListener('click', removeAddClass)
+	})
+}
 
 
-cells.forEach(element => {
+/*cells.forEach(element => {
 
 	element.addEventListener('click', trackingArrayFind)
 });
 
 
+*/

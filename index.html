@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <script src='jquery-3.6.0.min'></script>
     <meta charset="UTF-8">
@@ -8,110 +9,112 @@
     <title>CHESS!!</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <h1>Chess!!</h1>
-    
-<div class="inline">
-    
-    <div class="dropdown">
-        <button class="dropbtn">Choose Opponent</button>
-        <div class="dropdown-content">
-          <a href="#">Player</a>
-          <a href="#">Computer</a>
-          
+
+    <div class="inline">
+
+        <div class="dropdown">
+            <button class="dropbtn">Choose Opponent</button>
+            <div class="dropdown-content">
+                <a href="#">Player</a>
+                <a href="#">Computer</a>
+
+            </div>
         </div>
-      </div>
-    
 
-<butto>Black</button>
-<button class="button" id="white">White</button>
-<button class="button" id="restart">Restart</button>
 
-</div>
+        <butto>Black</button>
+            <button class="button" id="white">White</button>
+            <button class="button" id="restart">Restart</button>
 
-<table class="chessBoard">
-    <tr>
-        <td id="a8"  class="cell">&#9820;</td>
-        <td id="b8" class="cell ">&#9822;</td>
-        <td id="c8" class="cell">&#9821;</td>
-        <td id="d8" class="cell">&#9819;</td>
-        <td id="e8" class="cell">&#9818;</td>
-        <td id="f8" class="cell">&#9821;</td>
-        <td id="g8" class="cell">&#9822; </td>
-        <td id="h8" class="cell">&#9820;</td>
-    </tr>
+    </div>
+
+    <table class="chessBoard">
         <tr>
-        <td id="a7" class="cell">&#9823;</td>
-        <td id="b7" class="cell">&#9823;</td>
-        <td id="c7" class="cell">&#9823;</td>
-        <td id="d7" class="cell">&#9823;</td>
-        <td id="e7" class="cell">&#9823;</td>
-        <td id="f7" class="cell">&#9823;</td>
-        <td id="g7" class="cell">&#9823;</td>
-        <td id="h7" class="cell">&#9823;</td>
-    </tr>
+            <td id="a8" class="cell"> <p class="black" id="br-a8">&#9820;</p></td>
+            <td id="b8" class="cell"> <p class="black" id="bk-b8">&#9822;</p></td>
+            <td id="c8" class="cell"> <p class="black" id="bb-c8">&#9821;</p></td>
+            <td id="d8" class="cell"> <p class="black" id="bq-d8">&#9819;</p></td>
+            <td id="e8" class="cell"> <p class="black" id="bk-e8">&#9818;</p></td>
+            <td id="f8" class="cell"> <p class="black" id="bb-f8">&#9821;</p></td>
+            <td id="g8" class="cell"> <p class="black" id="bk-g8">&#9822;</p> </td>
+            <td id="h8" class="cell"> <p class="black" id="br-h8">&#9820;</p></td>
+        </tr>
         <tr>
-        <td id="a6" class="cell"></td>
-        <td id="b6" class="cell"></td>
-        <td id="c6" class="cell"></td>
-        <td id="d6" class="cell"></td>
-        <td id="e6" class="cell"></td>
-        <td id="f6" class="cell"></td>
-        <td id="g6" class="cell"></td>
-        <td id="h6" class="cell"></td>
-    </tr>
+            <td id="a7" class="cell"><p class="black" id="bp-a7">&#9823;</p></td>
+            <td id="b7" class="cell"><p class="black" id="bp-b7">&#9823;</p></td>
+            <td id="c7" class="cell"><p class="black" id="bp-c7">&#9823;</p></td>
+            <td id="d7" class="cell"><p class="black" id="bp-d7">&#9823;</p></td>
+            <td id="e7" class="cell"><p class="black" id="bp-e7">&#9823;</p></td>
+            <td id="f7" class="cell"><p class="black" id="bp-f7">&#9823;</p></td>
+            <td id="g7" class="cell"><p class="black" id="bp-g7">&#9823;</p></td>
+            <td id="h7" class="cell"><p class="black" id="bp-h7">&#9823;</p>
+            </td>
+        </tr>
         <tr>
-        <td id="a5" class="cell"></td>
-        <td id="b5" class="cell"></td>
-        <td id="c5" class="cell"></td>
-        <td id="d5" class="cell"></td>
-        <td id="e5" class="cell"></td>
-        <td id="f5" class="cell"></td>
-        <td id="g5" class="cell"></td>
-        <td id="h5" class="cell"></td>
-    </tr>
+            <td id="a6" class="cell"></td>
+            <td id="b6" class="cell"></td>
+            <td id="c6" class="cell"></td>
+            <td id="d6" class="cell"></td>
+            <td id="e6" class="cell"></td>
+            <td id="f6" class="cell"></td>
+            <td id="g6" class="cell"></td>
+            <td id="h6" class="cell"></td>
+        </tr>
         <tr>
-        <td id="a4" class="cell"></td>
-        <td id="b4" class="cell"></td>
-        <td id="c4" class="cell"></td>
-        <td id="d4" class="cell"></td>
-        <td id="e4" class="cell"></td>
-        <td id="f4" class="cell"></td>
-        <td id="g4" class="cell"></td>
-        <td id="h4" class="cell"></td>
-    </tr>
+            <td id="a5" class="cell"></td>
+            <td id="b5" class="cell"></td>
+            <td id="c5" class="cell"></td>
+            <td id="d5" class="cell"></td>
+            <td id="e5" class="cell"></td>
+            <td id="f5" class="cell"></td>
+            <td id="g5" class="cell"></td>
+            <td id="h5" class="cell"></td>
+        </tr>
         <tr>
-        <td id="a3" class="cell"></td>
-        <td id="b3" class="cell"></td>
-        <td id="c3" class="cell"></td>
-        <td id="d3" class="cell"></td>
-        <td id="e3" class="cell"></td>
-        <td id="f3" class="cell"></td>
-        <td id="g3" class="cell"></td>
-        <td id="h3" class="cell"></td>
-    </tr>
+            <td id="a4" class="cell"></td>
+            <td id="b4" class="cell"></td>
+            <td id="c4" class="cell"></td>
+            <td id="d4" class="cell"></td>
+            <td id="e4" class="cell"></td>
+            <td id="f4" class="cell"></td>
+            <td id="g4" class="cell"></td>
+            <td id="h4" class="cell"></td>
+        </tr>
         <tr>
-        <td id="a2" class="cell">&#9817;</td>
-        <td id="b2" class="cell">&#9817;</td>
-        <td id="c2" class="cell">&#9817;    </td>
-        <td id="d2" class="cell">&#9817;</td>
-        <td id="e2" class="cell">&#9817; </td>
-        <td id="f2" class="cell">&#9817;</td>
-        <td id="g2" class="cell">&#9817;</td>
-        <td id="h2" class="cell">&#9817;</td>
-    </tr>
+            <td id="a3" class="cell"></td>
+            <td id="b3" class="cell"></td>
+            <td id="c3" class="cell"></td>
+            <td id="d3" class="cell"></td>
+            <td id="e3" class="cell"></td>
+            <td id="f3" class="cell"></td>
+            <td id="g3" class="cell"></td>
+            <td id="h3" class="cell"></td>
+        </tr>
         <tr>
-        <td id="a1" class="cell"> &#9814;</td>
-        <td id="b1" class="cell">&#9816;</td>
-        <td id="c1" class="cell">&#9815;</td>
-        <td id="d1" class="cell">&#9813;</td>
-        <td id="e1" class="cell">&#9812;</td>
-        <td id="f1" class="cell">&#9815;</td>
-        <td id="g1" class="cell">&#9816;</td>
-        <td id="h1" class="cell"> &#9814;</td>
-    </tr>
-</table>
-<!--> &#9814;</div>
+            <td id="a2" class="cell"><p class="white" id="wp-a2">&#9817;</p></td>
+            <td id="b2" class="cell"><p class="white" id="wp-b2">&#9817;</p></td>
+            <td id="c2" class="cell"><p class="white" id="wp-c2">&#9817;</p> </td>
+            <td id="d2" class="cell"><p class="white" id="wp-d2">&#9817;</p></td>
+            <td id="e2" class="cell"><p class="white" id="wp-e2">&#9817;</p> </td>
+            <td id="f2" class="cell"><p class="white" id="wp-f2">&#9817;</p></td>
+            <td id="g2" class="cell"><p class="white" id="wp-g2">&#9817;</p></td>
+            <td id="h2" class="cell"><p class="white" id="wp-h2">&#9817;</p></td>
+        </tr>
+        <tr>
+            <td id="a1" class="cell"><p class="white" id="wr-a1">&#9814;</p></td>
+            <td id="b1" class="cell"><p class="white" id="wk-b1">&#9816;</p></td>
+            <td id="c1" class="cell"><p class="white" id="wb-c1">&#9815;</p></td>
+            <td id="d1" class="cell"><p class="white" id="wq-d1">&#9813;</p></td>
+            <td id="e1" class="cell"><p class="white" id="wk-e1">&#9812;</p></td>
+            <td id="f1" class="cell"><p class="white" id="wb-f1">&#9815;</p></td>
+            <td id="g1" class="cell"><p class="white" id="wk-g1">&#9816;</p></td>
+            <td id="h1" class="cell"><p class="white" id="wr-h1">&#9814;</p></td>
+        </tr>
+    </table>
+    <!--> &#9814;</div>
 <>&#9815;</div>>&#9816;</div>>&#9813;</div>>&#9812;</div>>&#9816;</div>
 <div id="w>&#9815;</div>
 <div id=> &#9814;</div>
@@ -145,4 +148,5 @@
 -->
     <script src="script.js"></script>
 </body>
+
 </html>
