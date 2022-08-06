@@ -6,160 +6,148 @@ var whitePieces = document.querySelectorAll(".white")
 var blackPieces = document.querySelectorAll(".black")
 
 // r=ROOK,n=Knight,i=Bishop,q=Queen,k=King,p=Pawn
-var trackingArray = 
+// Abstraction of cells
+var trackingArray =
 
-[
-	{ id: 'br-a8' }, { id: 'bn-b8' }, { id: 'bi-c8' }, { id: 'bq-d8' },
-	{ id: 'bk-e8' }, { id: 'bi-f8' }, { id: 'bn-g8' }, { id: 'br-h8' },
+	[
+		{ id: 'br-a8' }, { id: 'bn-b8' }, { id: 'bi-c8' }, { id: 'bq-d8' },
+		{ id: 'bk-e8' }, { id: 'bi-f8' }, { id: 'bn-g8' }, { id: 'br-h8' },
 
-	{ id: 'bp-a7' }, { id: 'bp-b7' }, { id: 'bp-c7' }, { id: 'bp-d7' },
-	{ id: 'bp-e7' }, { id: 'bp-f7', }, { id: 'bp-g7' }, { id: 'bp-h7', },
+		{ id: 'bp-a7' }, { id: 'bp-b7' }, { id: 'bp-c7' }, { id: 'bp-d7' },
+		{ id: 'bp-e7' }, { id: 'bp-f7', }, { id: 'bp-g7' }, { id: 'bp-h7', },
 
-	{ id: null }, { id: null }, { id: null }, { id: null },
-	{ id: null }, { id: null }, { id: null }, { id: null },
+		{ id: null }, { id: null }, { id: null }, { id: null },
+		{ id: null }, { id: null }, { id: null }, { id: null },
 
-	{ id: null }, { id: null }, { id: null }, { id: null },
-	{ id: null }, { id: null }, { id: null }, { id: null },
+		{ id: null }, { id: null }, { id: null }, { id: null },
+		{ id: null }, { id: null }, { id: null }, { id: null },
 
-	{ id: null }, { id: null }, { id: null }, { id: null },
-	{ id: null }, { id: null }, { id: null }, { id: null },
+		{ id: null }, { id: null }, { id: null }, { id: null },
+		{ id: null }, { id: null }, { id: null }, { id: null },
 
-	{ id: null }, { id: null }, { id: null }, { id: null },
-	{ id: null }, { id: null }, { id: null }, { id: null },
+		{ id: null }, { id: null }, { id: null }, { id: null },
+		{ id: null }, { id: null }, { id: null }, { id: null },
 
-	{ id: 'wp-a2' }, { id: 'wp-b2' }, { id: 'wp-c2' }, { id: 'wp-d2' },
-	{ id: 'wp-e2' }, { id: 'wp-f2' }, { id: 'wp-g2' }, { id: 'wp-h2' },
+		{ id: 'wp-a2' }, { id: 'wp-b2' }, { id: 'wp-c2' }, { id: 'wp-d2' },
+		{ id: 'wp-e2' }, { id: 'wp-f2' }, { id: 'wp-g2' }, { id: 'wp-h2' },
 
-	{ id: 'wr-a1' }, { id: 'wn-b1' }, { id: 'wi-c1' }, { id: 'wq-d1' },
-	{ id: 'wk-e1' }, { id: 'wi-f1' }, { id: 'wn-g1' }, { id: 'wr-h1' }
+		{ id: 'wr-a1' }, { id: 'wn-b1' }, { id: 'wi-c1' }, { id: 'wq-d1' },
+		{ id: 'wk-e1' }, { id: 'wi-f1' }, { id: 'wn-g1' }, { id: 'wr-h1' }
 
-]
+	]
 
 var bishopArr = [9, 18, 27, 36, 45, 54, 63, -9, -18, -27, -36, -45, -54, -63,
 	7, 14, 21, 28, 35, 42, 49, -7, -14, -21, -28, -35, -42, -49]
 
 
-var rows = [(-7), (-6), -5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6, 7]
+var rows = [-7, -6, -5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6, 7]
 var cols = [8, 16, 24, 32, 40, 48, 56, -8, -16, -24, -32, -40, -48, -56]
 
+// Used for validation of certain moves
 var checkAgainst = structuredClone(trackingArray)
 
-// CELLS IS HARDCODED TO THE DISPLAY I.E. A DIFFERENT 
-// FUNCTION WILL RUN WHEN I CLICK ON A SQUARE THAN THE HTML PIECE.
-// TRY TO CHANGE THE HTML WITH DOM. 
+
+// Adds "select" class name 
+function removeAddClass(element) {
+
+	let chessSquare = ""
+	let chessSquareID = ""
+	let removeClass = ""
+
+	chessSquare = (document.getElementById(element.target['id']))
+
+	chessSquareID = chessSquare['id']
+	console.log(chessSquare['id'])
 
 
-function removeAddClass(element){
-	
-	let clickChessSquare=""
-	let removeClass=""
-
-clickChessSquare = (document.getElementById(element.target['id']))
-console.log(clickChessSquare['id'])
- removeClass=document.getElementsByClassName('select')
-if(removeClass.length>0){
-	removeClass[0].remove('select')
-
-}else{
-	element.classList.add("select")
-}
 
 
-trackingArray(clickChessSquare)
+
+
+	trackingArrayFind(chessSquare, chessSquareID)
 
 }
 
-function trackingArrayFind(clickChessSquare) {
-	// cells Event Listener id select
-	
 
-	let clickChessSquareID=""
-	let htmlPieceIndex=1
-	let pieceTrackArr=[]
-	let rowLimit=1
-	let colLimit=""
+// Find element in array and get the row and coluimn info from the original html cell
+function trackingArrayFind(chessSquare, chessSquareID) {
 
-
-
-		
-	 
-	 
-	 console.log(clickChessSquare)
-	 clickChessSquareID = clickChessSquare['id']
+	let htmlNdex = 1
+	let = []
+	let rowLimit = 1
+	let colLimit = ""
 
 
 
-// Turn into it's on function///////////////////////////////////
-	for (i in cells) {
+	for (i in trackingArray) {
+		if (trackingArray[i]['id'] === chessSquareID) {
+			htmlNdex = Number([i])
 
-		if (cells[i] === clickChessSquare) {
-			 htmlPieceIndex = Number(i)
 		}
 	}
 
+	rowLimit = cells[htmlNdex]['id'][1]
+	colLimit = cells[htmlNdex]['id'][0]
+	console.log("Row Limit" + rowLimit, "Col Limit " + colLimit)
+	////////////////////////////////////////////////////////////////////
 
-	 pieceTrackArr = trackingArray[htmlPieceIndex]['id']
-	 rowLimit = clickChessSquareID[1]
-	 colLimit = clickChessSquareID[0]
-////////////////////////////////////////////////////////////////////
-
-	selectedPiece(clickChessSquareID, clickChessSquare,
-		htmlPieceIndex, pieceTrackArr, rowLimit, colLimit)
+	selectedPiece(chessSquareID, chessSquare, htmlNdex, rowLimit, colLimit)
 }
 
 
 
 
-/* calls to proper function for each piece*/
+/* calls the proper function for each piece*/
 
-function selectedPiece(cCSID, cCS,htmlNDex, pTrackr, rowLimit, colLimit) {
+function selectedPiece(chessSquareID, chessSquare, htmlNdex, rowLimit, colLimit) {
 
-	let parsePiece = 1
-	for (i in pTrackr) {
-		parsePiece = pTrackr[i]
-		console.log(parsePiece+" PP")
+	let parsePiece = ""
+	for (i in chessSquareID) {
+		parsePiece = chessSquareID[i]
+
+
 
 		switch (parsePiece) {
 			// pawn
 			case "p":
 				console.log("PAWN")
-				pawn(cCSID, cCS,
-					htmlNDex, pTrackr, rowLimit, colLimit)
+				pawn(chessSquareID, chessSquare,
+					htmlNdex, rowLimit, colLimit)
 
 				break;
 
 			//rook
 			case "r":
 				console.log("ROOK")
-				rook(cCSID, cCS,
-					htmlNDex, pTrackr, rowLimit, colLimit)
+				rook(chessSquareID, chessSquare,
+					htmlNdex, rowLimit, colLimit)
 				break;
 
 			//knight
 			case "n":
 
 				console.log("KNIGHT TIME")
-				knight (cCSID, cCS,
-					htmlNDex, pTrackr, rowLimit, colLimit)
+				knight(chessSquareID, chessSquare,
+					htmlNdex, rowLimit, colLimit)
 				break;
 
 			//bishop
 			case "i":
 				console.log("Bishop")
-				bishop (cCSID, cCS,
-					htmlNDex, pTrackr, rowLimit, colLimit)
+				bishop(chessSquareID, chessSquare,
+					htmlNdex, rowLimit, colLimit)
 				break;
 			//queen
 			case "q":
 				console.log("QUEEN")
-				queen (cCSID, cCS,
-					htmlNDex, pTrackr, rowLimit, colLimit)
+				queen(chessSquareID, chessSquare,
+					htmlNdex, rowLimit, colLimit)
 				break;
 			//king
 			case "k":
 				console.log("King me!")
-				king (cCSID, cCS,
-					htmlNDex, pTrackr, rowLimit, colLimit)
+				king(chessSquareID, chessSquare,
+					htmlNdex, rowLimit, colLimit)
 				break;
 		}
 
@@ -169,191 +157,132 @@ function selectedPiece(cCSID, cCS,htmlNDex, pTrackr, rowLimit, colLimit) {
 
 
 
-function PIECEMOVR() {
-	for (i in cells) {
-		console.log(cells[i]['id'])
 
 
-	}
-}
+function pawn(chessSquareID, chessSquare, htmlNdex, rowLimit, colLimit) {
+	console.log(htmlNdex)
+	console.log("Main Piece ID: " + chessSquareID,
+		" Row Limit: " + rowLimit, " Col Limit: " + colLimit, " htmlNdex: " + htmlNdex)
 
-function pawn (cCSID, cCS,htmlNDex, pTrackr, rowLimit, colLimit) {
-
-	console.log("Main Piece ID: " + cCSID, " Tracking Array: " + pTrackr
-		, " Row Limit: " + rowLimit, " Col Limit: " + colLimit)
 	/// Main Variables
-	let addOrDeleteHTML=[]
-	//// TOO MANy!!!
-	let moveUpBlack=1
-	let blackMoveId=""
-	let blackAttack=""
+
+
+	let moveUpBlack = 1
+	let possAttack = ""
+	let blackAttack = ""
 
 	let moveUpWhite = 1
-	let whiteMoveId =""
-	let whiteAttack=""
+	let whiteMoveId = ""
+	let whiteAttack = ""
 
 
-	addOrDeleteHTML = document.getElementById(cCSID).innerHTML
-		
+	console.log(trackingArray[moveUpBlack].id + "TR")
+	// Validates initial 2 space jump for pawns
+let blackMoveTwo = {
+		index: trackingArray[htmlNdex]['id'] == checkAgainst[htmlNdex]['id'],
 
-
-/* Rules for black Pawn need to practice DRY */
-	if (pTrackr.includes('b')) {
-
-		moveUpBlack = htmlNDex + 8
-		 blackMoveId = cells[moveUpBlack]['id']
-		blackAttack = [trackingArray[htmlNDex + 7]['id'], trackingArray[htmlNDex + 8]['id']]
-
-
-
-		for (i in blackAttack) {
-			for (j in blackAttack[i]) {
-				win = (blackAttack[i][j])
-				if (win.includes("w")) {
-
-					document.getElementById(cells[moveUpBlack + 1]['id']).addEventListener('click', () => {
-						document.getElementById(cCSID).innerHTML = " "
-						document.getElementById(cells[moveUpBlack + 1]['id']).innerHTML = addOrDeleteHTML
-						trackingArray[htmlNDex] = { id: null }
-						trackingArray[moveUpBlack + 1] = { id: pTrackr }
-					});
-
-					document.getElementById(cells[moveUpBlack - 1]['id']).addEventListener('click', () => {
-						document.getElementById(cCSID).innerHTML = " "
-						document.getElementById(cells[moveUpBlack - 1]['id']).innerHTML = addOrDeleteHTML
-						trackingArray[htmlNDex] = { id: null }
-						trackingArray[moveUpBlack - 11] = { id: pTrackr }
-					});
-
-
-
-				}
-			}
-		}
-
-
-
-		let blackMoveTwo = {
-			index: trackingArray[htmlNDex]['id'] === checkAgainst[htmlNDex]['id'],
-
-			spaceFree: trackingArray[htmlNDex + 8]['id'] == null && trackingArray
-            [htmlNDex + 16]['id'] == null
-			//+8 and +plus 16 spaces are free
-		}
-
-		if (blackMoveTwo.index == true && blackMoveTwo.spaceFree == true) {
-
-			document.getElementById(cells[moveUpBlack + 8]['id']).addEventListener('click', () => {
-				document.getElementById(cCSID).innerHTML = " "
-				cells[moveUpBlack + 8].innerHTML = addOrDeleteHTML
-
-				trackingArray[htmlNDex] = { id: null }
-				trackingArray[moveUpBlack + 8] = { id: pTrackr }
-
-			});
-		} if (trackingArray[moveUpBlack]['id'] === null) {
-
-			document.getElementById(blackMoveId).addEventListener('click', () => {
-				document.getElementById(cCSID).innerHTML = " "
-				cells[moveUpBlack].innerHTML = addOrDeleteHTML
-				trackingArray[htmlNDex] = { id: null }
-				trackingArray[moveUpBlack] = { id: pTrackr }
-
-			});
-
-
-		}
-	} /* End BLACK moves */
-	if (pTrackr.includes('w')) {
-		moveUpWhite = htmlNDex - 8
-		 whiteMoveId = cells[moveUpWhite]['id']
-		whiteAttack = [trackingArray[htmlNDex - 7]['id'], trackingArray[htmlNDex - 9]['id']]
-
-		for (i in whiteAttack) {
-
-			for (j in whiteAttack[i]) {
-				win = (whiteAttack[i][j])
-
-				if (win.includes("b")) {
-
-					document.getElementById(cells[moveUpWhite + 1]['id']).addEventListener('click', () => {
-						document.getElementById(cCSID).innerHTML = " "
-						document.getElementById(cells[moveUpWhite + 1]['id']).innerHTML = addOrDeleteHTML
-						trackingArray[htmlNDex] = { id: null }
-						trackingArray[moveUpWhite + 1] = { id: pTrackr }
-
-					});
-
-					document.getElementById(cells[moveUpWhite - 1]['id']).addEventListener('click', () => {
-						document.getElementById(cCSID).innerHTML = " "
-						document.getElementById(cells[moveUpWhite - 1]['id']).innerHTML = addOrDeleteHTML
-						trackingArray[htmlNDex] = { id: null }
-						trackingArray[moveUpWhite - 11] = { id: pTrackr }
-						whiteMoveId
-					});
-
-
-
-				} 
-
-
-				
-			}
-		}
-
-		let whiteMoveTwo = {
-			index: trackingArray[htmlNDex]['id'] === checkAgainst[htmlNDex]['id'],
-			spaceFree: trackingArray[htmlNDex - 8]['id'] == null && trackingArray[htmlNDex - 16]['id'] == null
-			//+8 and +plus 16 spaces are free
-		}
-
-		if (whiteMoveTwo.index === true && whiteMoveTwo.spaceFree === true) {
-
-			document.getElementById(cells[moveUpWhite - 8]['id']).addEventListener('click', () => {
-				document.getElementById(cCSID).innerHTML = " "
-				cells[moveUpWhite - 8].innerHTML = addOrDeleteHTML
-
-				trackingArray[htmlNDex] = { id: null }
-				trackingArray[moveUpWhite - 8] = { id: pTrackr }
-
-			});
-
-		} if (trackingArray[moveUpWhite]['id'] === null) {
-
-			document.getElementById(whiteMoveId).addEventListener('click', () => {
-				document.getElementById(cCSID).innerHTML = " "
-				cells[moveUpWhite].appendChild(whiteMoveId)
-				trackingArray[htmlNDex] = { id: null }
-				trackingArray[moveUpWhite] = { id: pTrackr }
-
-			});
-
-
-		}
-
-
-	}
+		spaceFree: trackingArray[htmlNdex + 8]['id'] === null && trackingArray
+		[htmlNdex + 16]['id'] === null
 }
 
 
 
-function rook (cCSID, cCS,
-	htmlNDex, pTrackr, rowLimit, colLimit) {
+console.log(cells[htmlNdex + 8]['id']+ "CElls")
+
+moveUpBlack = htmlNdex + 8
+// Sets move and attack rules for black pawn
+
+	if (chessSquareID.includes('b')) {
+
+		
+
+console.log(trackingArray[moveUpBlack]['id'] +" Move up")
 
 
-console.log("Main Piece ID: "+cCSID," Tracking Array: "+ pTrackr
-	  ," Row Limit: " +rowLimit ," Col Limit: "+ colLimit)
+	if (trackingArray[moveUpBlack]['id'] === null) {
+		document.getElementById(cells[moveUpBlack]['id']).addEventListener('click', () => {
+			cells[moveUpBlack].innerHTML=""
+			cells[moveUpBlack].appendChild(chessSquare)
+
+			trackingArray[htmlNdex] = { id: null }
+			trackingArray[moveUpBlack] = { id: chessSquareID }
+
+		})
+
+	} else {
+		console.log("Can't go that way!!!")
+	}
 
 
-/// CrEATE ADD AND DELETE HTML FUNCTION
-	let addOrDeleteHTML = document.getElementById(cCSID).innerHTML
-	let trackArrIndex=[]
-	let removeIllegalRows=[]
-	let possMoves=[]
+	if (blackMoveTwo.index == true && blackMoveTwo.spaceFree == true) {
+
+		document.getElementById(cells[htmlNdex+16]['id']).addEventListener('click', () => {
+
+			cells[htmlNdex+16].appendChild(chessSquare)
+
+			trackingArray[htmlNdex] = { id: null }
+			trackingArray[moveUpBlack + 16] = { id: chessSquareID }
+
+		})
+	}
+
+		
+}
+
+
+	possAttack = [trackingArray[htmlNdex + 7]['id'], trackingArray[htmlNdex + 9]['id']]
+for (i in possAttack){
+	console.log(possAttack[i])
+	if(possAttack[i].includes("w")){
+document.getElementById(cells[trackingArray.indexOf(possAttack[i])]).addEventListener('click', () => {
+
+	cells[trackingArray.indexOf(possAttack[i])].appendChild(chessSquare)
+
+		trackingArray[htmlNdex] = { id: null }
+		trackingArray[possAttack[i]] = { id: chessSquareID }
+
+	})
+} else{
+	console.log("Null")
+}
+
+}
+	/*if (possAttack['id'].includes('w')) {
+		blackAttack = document.getElementById(cells[moveUpBlack + 1]['id']).addEventListener('click', () => {
+
+
+		})
+
+	}*/
+
+	if (trackingArray[moveUpBlack]['id'] === null) {
+
+		document.getElementById(blackMove).addEventListener('click', () => {
+			cells[moveUpBlack].appendChild(chessSquare)
+
+		})
+
+
+	}
+
+
+}
+function rook(chessSquareID, chessSquare,
+	htmlNdex, rowLimit, colLimit) {
+
+
+	console.log("Main Piece ID: " + chessSquareID, " Row Limit: " + rowLimit, " Col Limit: " + colLimit)
+
+
+	/// CrEATE ADD AND DELETE HTML FUNCTION
+	let addOrDeleteHTML = document.getElementById(chessSquareID).innerHTML
+	let trackArrIndex = []
+	let removeIllegalRows = []
+	let possMoves = []
 	let rowCorrectMoves
 
 
-	
+
 	///////////////Will EVENTUALLY MAKE THIS A FUNCTION TO HANDLE ALL PIECE MOVES////
 	// rowLimit is  the number of the row I'm currently on
 	// colLimit is the letter of the column I'm on
@@ -362,28 +291,28 @@ console.log("Main Piece ID: "+cCSID," Tracking Array: "+ pTrackr
 	/*  This will eliminate moves involving  friendly pieces*/
 
 	for (r in rows) {
-	 possMoves= trackingArray[Number([rows[r]])+ htmlNDex]	
-	
+		possMoves = trackingArray[Number([rows[r]]) + htmlNdex]
+
 		//Gets the pieces on the squares and the null spaces
 		// use TrackArrIndex to compare to cell
 
-		
-		 console.log(possMoves)
 
-		 removeIllegalRows = cells[trackArrIndex]
-		 possMoves = trackingArray[trackArrIndex]
-            
-      //  }
-    
-			
+		console.log(possMoves + " possMoves")
+
+		removeIllegalRows = cells[trackArrIndex]
+		possMoves = trackingArray[trackArrIndex]
+
+		//  }
+
+
 
 	}
-		
 
-		// If rows and cols are illegal to move to// 
-		// Will make this the first function roo
 
-	
+	// If rows and cols are illegal to move to// 
+	// Will make this the first function roo
+
+
 
 
 
@@ -396,21 +325,21 @@ console.log("Main Piece ID: "+cCSID," Tracking Array: "+ pTrackr
 /// Main Variables
 
 
-function knight(cCSID, cCS,
-	htmlNDex, pTrackr, rowLimit, colLimit) {
+function knight(chessSquareID, chessSquare,
+	htmlNdex, rowLimit, colLimit) {
 
 }
-function bishop(cCSID, cCS,
-	htmlNDex, pTrackr, rowLimit, colLimit) {
+function bishop(chessSquareID, chessSquare,
+	htmlNdex, rowLimit, colLimit) {
 
 }
-function queen(cCSID, cCS,
-	htmlNDex, pTrackr, rowLimit, colLimit) {
+function queen(chessSquareID, chessSquare,
+	htmlNdex, rowLimit, colLimit) {
 
 }
 
-function king(cCSID, cCS,
-	htmlNDex,  pTrackr, rowLimit, colLimit) {
+function king(chessSquareID, chessSquare,
+	htmlNdex, rowLimit, colLimit) {
 
 }
 
@@ -435,14 +364,14 @@ function castle() {
 	}
 
 }
-let playerTurn=true
+let playerTurn = true
 
-if (playerTurn==true){
-	blackPieces.forEach(element =>{
-		
-		element.addEventListener('click',removeAddClass)
+if (playerTurn == true) {
+	blackPieces.forEach(element => {
+
+		element.addEventListener('click', removeAddClass)
 	})
-} else{
+} else {
 	whitePieces.forEach(element => {
 		element.addEventListener('click', removeAddClass)
 	})
