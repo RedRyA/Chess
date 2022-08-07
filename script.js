@@ -57,7 +57,6 @@ function removeAddClass(element) {
 	chessSquare = (document.getElementById(element.target['id']))
 
 	chessSquareID = chessSquare['id']
-	console.log(chessSquare['id'])
 
 
 
@@ -80,15 +79,15 @@ function trackingArrayFind(chessSquare, chessSquareID) {
 
 
 	for (i in trackingArray) {
-		if (trackingArray[i]['id'] === chessSquareID) {
+		if (trackingArray[i]['id'] == chessSquareID) {
+			console.log()
 			htmlNdex = Number([i])
 
 		}
 	}
-
+console.log(htmlNdex)
 	rowLimit = cells[htmlNdex]['id'][1]
 	colLimit = cells[htmlNdex]['id'][0]
-	console.log("Row Limit" + rowLimit, "Col Limit " + colLimit)
 	////////////////////////////////////////////////////////////////////
 
 	selectedPiece(chessSquareID, chessSquare, htmlNdex, rowLimit, colLimit)
@@ -110,7 +109,6 @@ function selectedPiece(chessSquareID, chessSquare, htmlNdex, rowLimit, colLimit)
 		switch (parsePiece) {
 			// pawn
 			case "p":
-				console.log("PAWN")
 				pawn(chessSquareID, chessSquare,
 					htmlNdex, rowLimit, colLimit)
 
@@ -160,7 +158,6 @@ function selectedPiece(chessSquareID, chessSquare, htmlNdex, rowLimit, colLimit)
 
 
 function pawn(chessSquareID, chessSquare, htmlNdex, rowLimit, colLimit) {
-	console.log(htmlNdex)
 	console.log("Main Piece ID: " + chessSquareID,
 		" Row Limit: " + rowLimit, " Col Limit: " + colLimit, " htmlNdex: " + htmlNdex)
 
@@ -176,206 +173,205 @@ function pawn(chessSquareID, chessSquare, htmlNdex, rowLimit, colLimit) {
 	let whiteAttack = ""
 
 
-	console.log(trackingArray[moveUpBlack].id + "TR")
 	// Validates initial 2 space jump for pawns
-let blackMoveTwo = {
-		index: trackingArray[htmlNdex]['id'] == checkAgainst[htmlNdex]['id'],
+	let blackMoveTwo = {
+		index: trackingArray[htmlNdex]['id'] === checkAgainst[htmlNdex]['id'],
 
 		spaceFree: trackingArray[htmlNdex + 8]['id'] === null && trackingArray
 		[htmlNdex + 16]['id'] === null
-}
+	}
+console.log(blackMoveTwo)
 
 
+	console.log(cells[htmlNdex + 8]['id'] + " CElls ",htmlNdex)
 
-console.log(cells[htmlNdex + 8]['id']+ "CElls")
-
-moveUpBlack = htmlNdex + 8
-// Sets move and attack rules for black pawn
+	moveUpBlack = htmlNdex + 8
+	// Sets move and attack rules for black pawn
 
 	if (chessSquareID.includes('b')) {
+		if (blackMoveTwo.index === true && blackMoveTwo.spaceFree === true) {
+			document.getElementById(cells[ moveUpBlack]['id']).addEventListener('click', () => {
 
+				cells[ moveUpBlack].appendChild(chessSquare)
+
+				trackingArray[htmlNdex] = { id: null }
+				trackingArray[moveUpBlack] = { id: chessSquareID }
+
+
+			})
 		
+			document.getElementById(cells[htmlNdex + 16]['id']).addEventListener('click', () => {
 
-console.log(trackingArray[moveUpBlack]['id'] +" Move up")
+				cells[moveUpBlack+8].appendChild(chessSquare)
 
-
-	if (trackingArray[moveUpBlack]['id'] === null) {
-		document.getElementById(cells[moveUpBlack]['id']).addEventListener('click', () => {
-			cells[moveUpBlack].innerHTML=""
-			cells[moveUpBlack].appendChild(chessSquare)
-
-			trackingArray[htmlNdex] = { id: null }
-			trackingArray[moveUpBlack] = { id: chessSquareID }
-
-		})
-
-	} else {
-		console.log("Can't go that way!!!")
-	}
+				trackingArray[htmlNdex] = { id: null }
+				trackingArray[moveUpBlack + 8] = { id: chessSquareID }
 
 
-	if (blackMoveTwo.index == true && blackMoveTwo.spaceFree == true) {
-
-		document.getElementById(cells[htmlNdex+16]['id']).addEventListener('click', () => {
-
-			cells[htmlNdex+16].appendChild(chessSquare)
-
-			trackingArray[htmlNdex] = { id: null }
-			trackingArray[moveUpBlack + 16] = { id: chessSquareID }
-
-		})
-	}
-
+			})
 		
-}
+	}else if (trackingArray[moveUpBlack]['id'] === null) {
 
+			(cells[moveUpBlack]).addEventListener('click', () => {
+				cells[moveUpBlack].innerHTML = ""
+				cells[moveUpBlack].appendChild(chessSquare)
 
+				trackingArray[htmlNdex] = { id: null }
+				trackingArray[moveUpBlack] = { id: chessSquareID }
+
+			})
+
+		} else {
+			console.log("Can't go that way!!!")
+		
+			}
+		
 	possAttack = [trackingArray[htmlNdex + 7]['id'], trackingArray[htmlNdex + 9]['id']]
-for (i in possAttack){
-	console.log(possAttack[i])
-	if(possAttack[i].includes("w")){
-document.getElementById(cells[trackingArray.indexOf(possAttack[i])]).addEventListener('click', () => {
 
-	cells[trackingArray.indexOf(possAttack[i])].appendChild(chessSquare)
+		for (i in possAttack) {
+			console.log(possAttack)
+			
 
-		trackingArray[htmlNdex] = { id: null }
-		trackingArray[possAttack[i]] = { id: chessSquareID }
+		}
 
-	})
-} else{
-	console.log("Null")
+			if(possAttack[i].includes("w")){
+		document.getElementById(cells[trackingArray.indexOf(possAttack[i])]).addEventListener('click', () => {
+		
+			cells[trackingArray.indexOf(possAttack[i])].appendChild(chessSquare)
+		
+				trackingArray[htmlNdex] = { id: null }
+				trackingArray[possAttack[i]] = { id: chessSquareID }
+		
+			})
+		} else{
+			console.log("Null")
+		}
+		
+	}
+			if (possAttack['id'].includes('w')) {
+				blackAttack = document.getElementById(cells[moveUpBlack + 1]['id']).addEventListener('click', () => {
+		
+		
+				})
+		
+			}
+
+
+		
+	}
+
+
 }
 
-}
-	/*if (possAttack['id'].includes('w')) {
-		blackAttack = document.getElementById(cells[moveUpBlack + 1]['id']).addEventListener('click', () => {
+
+	function rook(chessSquareID, chessSquare,
+		htmlNdex, rowLimit, colLimit) {
 
 
+		console.log("Main Piece ID: " + chessSquareID, " Row Limit: " + rowLimit, " Col Limit: " + colLimit)
+
+
+		/// CrEATE ADD AND DELETE HTML FUNCTION
+		let addOrDeleteHTML = document.getElementById(chessSquareID).innerHTML
+		let trackArrIndex = []
+		let removeIllegalRows = []
+		let possMoves = []
+		let rowCorrectMoves
+
+
+
+		///////////////Will EVENTUALLY MAKE THIS A FUNCTION TO HANDLE ALL PIECE MOVES////
+		// rowLimit is  the number of the row I'm currently on
+		// colLimit is the letter of the column I'm on
+		// USE ROW NUMBERS AND LETTERS TO SET LIMITS
+		// eliminate illegal moves
+		/*  This will eliminate moves involving  friendly pieces*/
+
+		for (r in rows) {
+			possMoves = trackingArray[Number([rows[r]]) + htmlNdex]
+
+			//Gets the pieces on the squares and the null spaces
+			// use TrackArrIndex to compare to cell
+
+
+
+			removeIllegalRows = cells[trackArrIndex]
+			possMoves = trackingArray[trackArrIndex]
+
+			//  }
+
+
+
+		}
+
+
+		// If rows and cols are illegal to move to// 
+		// Will make this the first function roo
+
+
+
+
+
+
+	}
+
+
+
+
+	/// Main Variables
+
+
+	function knight(chessSquareID, chessSquare,
+		htmlNdex, rowLimit, colLimit) {
+
+	}
+	function bishop(chessSquareID, chessSquare,
+		htmlNdex, rowLimit, colLimit) {
+
+	}
+	function queen(chessSquareID, chessSquare,
+		htmlNdex, rowLimit, colLimit) {
+
+	}
+
+	function king(chessSquareID, chessSquare,
+		htmlNdex, rowLimit, colLimit) {
+
+	}
+
+
+	// Special moves
+
+	function enPassant() {
+		let enPassant = {
+			attackingPawn: "on 4 or 5"
+		}
+
+	}
+
+
+
+	function castle() {
+		let castle = {
+			hasRookMoved: "counter", //true false counter,
+			hasKingmobed: true,
+			inCheck: true,
+			movingthroughCheck: true
+		}
+
+	}
+	let playerTurn = true
+
+	if (playerTurn == true) {
+		blackPieces.forEach(element => {
+
+			element.addEventListener('click', removeAddClass)
 		})
-
-	}*/
-
-	if (trackingArray[moveUpBlack]['id'] === null) {
-
-		document.getElementById(blackMove).addEventListener('click', () => {
-			cells[moveUpBlack].appendChild(chessSquare)
-
+	} else {
+		whitePieces.forEach(element => {
+			element.addEventListener('click', removeAddClass)
 		})
-
-
 	}
-
-
-}
-function rook(chessSquareID, chessSquare,
-	htmlNdex, rowLimit, colLimit) {
-
-
-	console.log("Main Piece ID: " + chessSquareID, " Row Limit: " + rowLimit, " Col Limit: " + colLimit)
-
-
-	/// CrEATE ADD AND DELETE HTML FUNCTION
-	let addOrDeleteHTML = document.getElementById(chessSquareID).innerHTML
-	let trackArrIndex = []
-	let removeIllegalRows = []
-	let possMoves = []
-	let rowCorrectMoves
-
-
-
-	///////////////Will EVENTUALLY MAKE THIS A FUNCTION TO HANDLE ALL PIECE MOVES////
-	// rowLimit is  the number of the row I'm currently on
-	// colLimit is the letter of the column I'm on
-	// USE ROW NUMBERS AND LETTERS TO SET LIMITS
-	// eliminate illegal moves
-	/*  This will eliminate moves involving  friendly pieces*/
-
-	for (r in rows) {
-		possMoves = trackingArray[Number([rows[r]]) + htmlNdex]
-
-		//Gets the pieces on the squares and the null spaces
-		// use TrackArrIndex to compare to cell
-
-
-		console.log(possMoves + " possMoves")
-
-		removeIllegalRows = cells[trackArrIndex]
-		possMoves = trackingArray[trackArrIndex]
-
-		//  }
-
-
-
-	}
-
-
-	// If rows and cols are illegal to move to// 
-	// Will make this the first function roo
-
-
-
-
-
-
-}
-
-
-
-
-/// Main Variables
-
-
-function knight(chessSquareID, chessSquare,
-	htmlNdex, rowLimit, colLimit) {
-
-}
-function bishop(chessSquareID, chessSquare,
-	htmlNdex, rowLimit, colLimit) {
-
-}
-function queen(chessSquareID, chessSquare,
-	htmlNdex, rowLimit, colLimit) {
-
-}
-
-function king(chessSquareID, chessSquare,
-	htmlNdex, rowLimit, colLimit) {
-
-}
-
-
-// Special moves
-
-function enPassant() {
-	let enPassant = {
-		attackingPawn: "on 4 or 5"
-	}
-
-}
-
-
-
-function castle() {
-	let castle = {
-		hasRookMoved: "counter", //true false counter,
-		hasKingmobed: true,
-		inCheck: true,
-		movingthroughCheck: true
-	}
-
-}
-let playerTurn = true
-
-if (playerTurn == true) {
-	blackPieces.forEach(element => {
-
-		element.addEventListener('click', removeAddClass)
-	})
-} else {
-	whitePieces.forEach(element => {
-		element.addEventListener('click', removeAddClass)
-	})
-}
 
 
 /*cells.forEach(element => {

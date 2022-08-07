@@ -1,3 +1,7 @@
+body{
+  background-color: rgb(255, 255, 255);
+}
+
 h1{
     text-align: center;
 }
@@ -10,6 +14,9 @@ h1{
   
 }
 
+p{
+ border: 30px;
+}
 /* Dropdown menu  */
 .dropbtn {
     background-color: #04AA6D;
@@ -51,20 +58,26 @@ h1{
 
 table tr:nth-child(odd) td:nth-child(even) {
   background: rgb(255, 0, 0);
+  width: 55px;
+  height: 55px;
 }
 table tr:nth-child(even) td:nth-child(odd) {
+  width: 55px;
+  height: 55px;
   background: rgb(255, 0, 0);
 }
 
 .chessBoard{
   margin-left: auto;
   margin-right: auto;
+  width: 500px;
+  height: 500px;
  
 }
 
 table tr td {
-  width: 45px;
-  height: 45px;
+  width: 55px;
+  height: 55px;
   border: solid #000 1px;
  margin-top: 10px;
  text-align: center;
