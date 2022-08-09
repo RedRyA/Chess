@@ -287,7 +287,9 @@ function rook(chessSquareID, chessSquare,
 	let possMoves = []
 	let rowCorrectMoves
 	let possRowMoves = []
+	let rowLimitCompare = []
 	let possColMoves = []
+	let colLimitCompare = []
 	let rowColMove = []
 	let attack = 1
 
@@ -298,77 +300,72 @@ function rook(chessSquareID, chessSquare,
 	// eliminate illegal moves
 	/*  This will eliminate moves involving  friendly pieces*/
 
-	//NEED TO TEST IS COL AND ROW CAN BE DELETED CURRENTLY
 
 	for (r in rows) {
-		possRowMoves = [trackingArray[Number(rows[r])+htmlNdex]]
-		for (poss in possRowMoves){
-			console.log(possRowMoves[poss]+ " poss row")
-		}
-		
-		for (p in possRowMoves) {
-			if (possRowMoves[p] === undefined || possRowMoves[p][0] === 'b') {
-				possRowMoves.splice(possRowMoves[p], 1)
+		possRowMoves = trackingArray[Number(rows[r]) + htmlNdex]
+		rowLimitCompare = cells[Number(rows[r]) + htmlNdex]
+		for (r in possRowMoves) {
+			// Compare this to rowLimit
+			rowLimitCompare = rowLimitCompare[r][1]
+			if (rowLimitCompare != rowLimit) {
+				delete possRowMoves.id[r]
+				return possRowMoves
 
 
-				console.log(possRowMoves['id'] + ' poss row moves filtered')
 			}
 
+
 		}
+
+
+
+
 
 	}
 	for (c in cols) {
 
-		possColMoves = [trackingArray[cols[c] + htmlNdex]]
-		console.log(possColMoves+" poss col moves unfiltered")
-		for (p in possColMoves) {
-			if (possColMoves[p] === undefined || possColMoves[p][0] === 'b') {
-				possColMoves.splice(possColMoves[p], 1)
-				console.log(possColMoves +" poss col moves unfiltered")
+		possColMoves = trackingArray[Number(cols[c]) + htmlNdex]
+		colLimitCompare = cells[cols[c] + htmlNdex]
+		for (c in possColMoves) {
+			// Compare this to colLimit
+			colLimitCompare = colLimitCompare[c][0]
 
-
-			}
+			if (colLimitCompare != colLimit) {
+				delete possColMoves[c].id
+				return possColMoves
 
 		}
-
 	}
-	rowColMove = [possRowMoves.concat(possColMoves)]
-	console.log(rowColMove +" row col moves unfiltered ")
-	for (rc in rowColMove) {
-		for (j in trackingArray) {
+let rookMove={
+	...possRowMoves,
+	...possColMoves
 
-			if (rowColMove[rc] == trackingArray[j]['id']) {
-				attack = trackingArray.indexOf(trackingArray[j])
-				console.log(attack +' attack')
-			}
-			if (rowColMove[rc].includes('wk')) {
-				console.log("Check!!")
-				rowColMove.splice(rowColMove[rc], 1)
+}
+for (r in rookMove){
+ 
+}
+
+}
+
+	
 			
-
-
-			} else if (rowColMove[rc].includes("w")) {
-				cells[attack].addEventListener('click', () => {
-					cells[attack].innerHTML = ""
-					cells[attack].appendChild(chessSquare)
-
-					trackingArray[htmlNdex] = { id: null }
-					trackingArray[attack] = { id: chessSquareID }
-
-				})
-			} else {
-				console.log("Null")
-			}
-		}
-	}
 
 	//Gets the pieces on the squares and the null spaces
 	// use TrackArrIndex to compare to cell
 
+ /* if (rookMove.id === null) {
+
+		(cells[]).addEventListener('click', () => {
+			cells[rookMove.id].innerHTML = ""
+			cells[rookMove.id].appendChild(chessSquare)
+
+			trackingArray[htmlNdex] = { id: null }
+			trackingArray[rookMove.id] = { id: chessSquareID }
+
+		})
 
 
-
-
+	}*/
 
 
 }
@@ -443,10 +440,5 @@ if (playerTurn == true) {
 }
 
 
-/*cells.forEach(element => {
-
-	element.addEventListener('click', trackingArrayFind)
-});
 
 
-*/
