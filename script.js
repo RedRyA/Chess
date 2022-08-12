@@ -40,8 +40,9 @@ var bishopArr = [9, 18, 27, 36, 45, 54, 63, -9, -18, -27, -36, -45, -54, -63,
 	7, 14, 21, 28, 35, 42, 49, -7, -14, -21, -28, -35, -42, -49]
 
 
-var rows = [-7, -6, -5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6, 7]
-var cols = [8, 16, 24, 32, 40, 48, 56, -8, -16, -24, -32, -40, -48, -56]
+
+
+
 
 // Used for validation of certain moves
 var checkAgainst = structuredClone(trackingArray)
@@ -282,73 +283,60 @@ function rook(chessSquareID, chessSquare,
 
 
 	/// CrEATE ADD AND DELETE HTML FUNCTION
-	let trackArrIndex = []
-	let removeIllegalRows = []
-	let possMoves = []
-	let rowCorrectMoves
 	let possRowMoves = []
-	let rowLimitCompare = []
 	let possColMoves = []
-	let colLimitCompare = []
-	let rowColMove = []
-	let attack = 1
-
+	let rowIndex=[]
+	let colIndex=[]
+	let rows = [-7, -6, -5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6, 7]
+	let cols = [8, 16, 24, 32, 40, 48, 56, -8, -16, -24, -32, -40, -48, -56]
 	///////////////Will EVENTUALLY MAKE THIS A FUNCTION TO HANDLE ALL PIECE MOVES////
 	// rowLimit is  the number of the row I'm currently on
 	// colLimit is the letter of the column I'm on
 	// USE ROW NUMBERS AND LETTERS TO SET LIMITS
 	// eliminate illegal moves
 	/*  This will eliminate moves involving  friendly pieces*/
-
-
-	for (r in rows) {
-		possRowMoves = trackingArray[Number(rows[r]) + htmlNdex]
-		rowLimitCompare = cells[Number(rows[r]) + htmlNdex]
-		for (r in possRowMoves) {
-			// Compare this to rowLimit
-			rowLimitCompare = rowLimitCompare[r][1]
-			if (rowLimitCompare != rowLimit) {
-				delete possRowMoves.id[r]
-				return possRowMoves
-
-
-			}
-
-
-		}
-
-
-
-
-
-	}
-	for (c in cols) {
-
-		possColMoves = trackingArray[Number(cols[c]) + htmlNdex]
-		colLimitCompare = cells[cols[c] + htmlNdex]
-		for (c in possColMoves) {
-			// Compare this to colLimit
-			colLimitCompare = colLimitCompare[c][0]
-
-			if (colLimitCompare != colLimit) {
-				delete possColMoves[c].id
-				return possColMoves
-
-		}
-	}
-let rookMove={
-	...possRowMoves,
-	...possColMoves
-
-}
-for (r in rookMove){
- 
-}
-
-}
-
+for(index in rows){
+	rowIndex=[rows[index]+htmlNdex]
+	possRowMoves = trackingArray[Number(rows[index]) + htmlNdex]
 	
-			
+	
+
+
+for(ndex in cols){
+	 colIndex=[cols[ndex]+htmlNdex]
+	possColMoves=trackingArray[Number(cols[ndex])+htmlNdex]
+
+	console.log(possColMoves,colIndex,possRowMoves,rowIndex)
+
+
+
+
+
+}
+	
+	
+
+}
+// USE THESE TO MOVE ROOK!!!!!!
+	let rookMoves=[possColMoves,possRowMoves]
+	
+let rookIndex=[colIndex,rowIndex]
+		
+
+
+
+}
+
+cells[colIndex].addEventListener('click', () => {
+		cells[colIndex].innerHTML = ""
+		cells[colIndex].appendChild(chessSquare)
+
+		trackingArray[htmlNdex] = { id: null }
+		trackingArray[colIndex] = { id: chessSquareID }
+
+	})
+}*/
+
 
 	//Gets the pieces on the squares and the null spaces
 	// use TrackArrIndex to compare to cell
@@ -368,7 +356,7 @@ for (r in rookMove){
 	}*/
 
 
-}
+
 
 
 // If rows and cols are illegal to move to// 
