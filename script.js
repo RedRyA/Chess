@@ -297,45 +297,57 @@ function rook(chessSquareID, chessSquare,
 	/*  This will eliminate moves involving  friendly pieces*/
 for(index in rows){
 	rowIndex=[rows[index]+htmlNdex]
-	possRowMoves = trackingArray[Number(rows[index]) + htmlNdex]
+	possRowMoves = trackingArray[rowIndex]
+	cellRowMoves=cells[rows[index]]
 	
-	
-
-
 for(ndex in cols){
 	 colIndex=[cols[ndex]+htmlNdex]
-	possColMoves=trackingArray[Number(cols[ndex])+htmlNdex]
+	possColMoves=trackingArray[colIndex]
 
-	console.log(possColMoves,colIndex,possRowMoves,rowIndex)
+	
+
+let rookMoves=[possColMoves,possRowMoves]
+let rookIndex=[colIndex,rowIndex]
+for (r in rookIndex){
+	let cellTest=cells[rookIndex[r]]
+	console.log(cellTest+ ' cellTst')
+
+if(cellTest != undefined){
+	
+cellTest.addEventListener('click', () => {
+		cellTest.innerHTML=" "
+
+		cellTest.appendChild(chessSquare)
+
+		trackingArray[htmlNdex] = { id: null }
+		trackingArray[rookIndex[r]] = { id: chessSquareID }
+})
 
 
+}
 
 
 
 }
-	
-	
+}
 
+	
 }
 // USE THESE TO MOVE ROOK!!!!!!
-	let rookMoves=[possColMoves,possRowMoves]
-	
-let rookIndex=[colIndex,rowIndex]
+
+
+}
+
+
+		
 		
 
 
 
-}
 
-cells[colIndex].addEventListener('click', () => {
-		cells[colIndex].innerHTML = ""
-		cells[colIndex].appendChild(chessSquare)
+	
+	
 
-		trackingArray[htmlNdex] = { id: null }
-		trackingArray[colIndex] = { id: chessSquareID }
-
-	})
-}*/
 
 
 	//Gets the pieces on the squares and the null spaces
