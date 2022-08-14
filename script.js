@@ -81,7 +81,6 @@ function trackingArrayFind(chessSquare, chessSquareID) {
 
 	for (i in trackingArray) {
 		if (trackingArray[i]['id'] == chessSquareID) {
-			console.log()
 			htmlNdex = Number([i])
 
 		}
@@ -165,85 +164,93 @@ function pawn(chessSquareID, chessSquare, htmlNdex, rowLimit, colLimit) {
 	/// Main Variables
 
 
-	let moveUpBlack = 1
-	let possAttack = ""
-	let blackAttack = ""
-	let attack = 1
-	let moveUpWhite = 1
-	let whiteMoveId = ""
-	let whiteAttack = ""
+	
 
 
 	// Validates initial 2 space jump for pawns
-	let blackMoveTwo = {
-		index: trackingArray[htmlNdex]['id'] === checkAgainst[htmlNdex]['id'],
+	
 
-		spaceFree: trackingArray[htmlNdex + 8]['id'] === null && trackingArray
-		[htmlNdex + 16]['id'] === null
-	}
-	console.log(blackMoveTwo)
-
-
-	console.log(cells[htmlNdex + 8]['id'] + " CElls ", htmlNdex)
-
-	moveUpBlack = htmlNdex + 8
+	pawnMove = [8]
 	// Sets move and attack rules for black pawn
+for (p in pawnMove) {
+		let pIndex = Number(pawnMove[p] + htmlNdex)
 
-	if (chessSquareID.includes('b')) {
-		if (blackMoveTwo.index === true && blackMoveTwo.spaceFree === true) {
-			document.getElementById(cells[moveUpBlack]['id']).addEventListener('click', () => {
+		let pRider = trackingArray[pIndex]
 
-				cells[moveUpBlack].appendChild(chessSquare)
+		let pRiderCell = cells[pIndex]
 
-				trackingArray[htmlNdex] = { id: null }
-				trackingArray[moveUpBlack] = { id: chessSquareID }
+		console.log(pRider, pRiderCell)
 
+		for (p in pRiderCell) {
 
-			})
+			pRiderCell.addEventListener('click', () => {
+				pRiderCell.innerHTML = " "
 
-			document.getElementById(cells[htmlNdex + 16]['id']).addEventListener('click', () => {
-
-				cells[moveUpBlack + 8].appendChild(chessSquare)
-
-				trackingArray[htmlNdex] = { id: null }
-				trackingArray[moveUpBlack + 8] = { id: chessSquareID }
-
-
-			})
-
-		} else if (trackingArray[moveUpBlack]['id'] === null) {
-
-			(cells[moveUpBlack]).addEventListener('click', () => {
-				cells[moveUpBlack].innerHTML = ""
-				cells[moveUpBlack].appendChild(chessSquare)
+				pRiderCell.appendChild(chessSquare)
 
 				trackingArray[htmlNdex] = { id: null }
-				trackingArray[moveUpBlack] = { id: chessSquareID }
-
+				trackingArray[pIndex] = { id: chessSquareID }
 			})
-
-		} else {
-			console.log("Can't go that way!!!")
 
 		}
 
-		possAttack = [trackingArray[htmlNdex + 7]['id'], trackingArray[htmlNdex + 9]['id']]
+	}
+
+
+var blackMoveTwo = {
+	index: trackingArray[htmlNdex]['id'] === checkAgainst[htmlNdex]['id'],
+
+	spaceFree: trackingArray[htmlNdex + 8]['id'] === null && trackingArray
+	[htmlNdex + 16]['id'] === null
+}
+
+		if (blackMoveTwo.index === true && blackMoveTwo.spaceFree === true) {
+			document.getElementById(cells[htmlNdex+16]['id']).addEventListener('click', () => {
+
+				cells[htmlNdex+16].appendChild(chessSquare)
+
+				trackingArray[htmlNdex] = { id: null }
+				trackingArray[htmlNdex+16] = { id: chessSquareID }
+
+
+			})
+		
+
+	possAttack = [7,9]
+
+			for (p in possAttack) {
+				let pAttackIndex = Number(possAttack[p] + htmlNdex)
+
+				let pAttackRider = trackingArray[pAttackIndex]
+
+				let pAttackRiderCell = cells[pAttackIndex]
+
+				console.log(pAttackRider, pAttackRiderCell)
+				for (i in pAttackRider){
+					console.log(pAttackRider[i]+' Attack')
+				}
+			
+				for (p in pAttackRiderCell) {
+
+					pAttackRiderCell.addEventListener('click', () => {
+						pAttackRiderCell.innerHTML = " "
+
+						pAttackRiderCell.appendChild(chessSquare)
+
+						trackingArray[htmlNdex] = { id: null }
+						trackingArray[pAttackIndex] = { id: chessSquareID }
+					})
+
+				}
+
+			}
+		
 
 
 
-		for (i in possAttack) {
-			for (j in trackingArray) {
-				if (possAttack[i] == trackingArray[j]['id']) {
-					attack = trackingArray.indexOf(trackingArray[j])
-					console.log(attack + " Attack")
-
-
-
-
-					if (possAttack[i].includes('wk')) {
-						console.log("Check!!")
-						possAttack.splice(possAttack[i], 1)
-						console.log(possAttack + "poss?")
+		/*	cells[attack].addEventListener('click', () => {
+				cells[attack].innerHTML = ""
+				cells[attack].appendChild(chessSquare)
 
 
 					} else if (possAttack[i].includes("w")) {
@@ -265,14 +272,14 @@ function pawn(chessSquareID, chessSquare, htmlNdex, rowLimit, colLimit) {
 		}
 
 
-	}
+	}*/
 
 
 
 }
 
 
-
+}
 
 
 function rook(chessSquareID, chessSquare,
@@ -285,8 +292,8 @@ function rook(chessSquareID, chessSquare,
 	/// CrEATE ADD AND DELETE HTML FUNCTION
 	let possRowMoves = []
 	let possColMoves = []
-	let rowIndex=[]
-	let colIndex=[]
+	let rowIndex = []
+	let colIndex = []
 	let rows = [-7, -6, -5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6, 7]
 	let cols = [8, 16, 24, 32, 40, 48, 56, -8, -16, -24, -32, -40, -48, -56]
 	///////////////Will EVENTUALLY MAKE THIS A FUNCTION TO HANDLE ALL PIECE MOVES////
@@ -295,113 +302,198 @@ function rook(chessSquareID, chessSquare,
 	// USE ROW NUMBERS AND LETTERS TO SET LIMITS
 	// eliminate illegal moves
 	/*  This will eliminate moves involving  friendly pieces*/
-for(index in rows){
-	rowIndex=[rows[index]+htmlNdex]
-	possRowMoves = trackingArray[rowIndex]
-	cellRowMoves=cells[rows[index]]
-	
-for(ndex in cols){
-	 colIndex=[cols[ndex]+htmlNdex]
-	possColMoves=trackingArray[colIndex]
+	for (index in rows) {
+		rowIndex = Number(rows[index] + htmlNdex)
+		console.log(rowIndex)
+		possRowMoves = trackingArray[rowIndex]
+		cellRowMoves = cells[rowIndex]
+		console.log(chessSquareID[0])
+		// deletes moves that are the same color
+		for (i in possRowMoves) {
+			if (possRowMoves[i][0] === chessSquareID[0])
+				delete possRowMoves[i]
+			delete cellRowMoves[i]
+			console.log(possRowMoves[i], cellRowMoves[i])
+		}
+		for (ndex in cols) {
+			colIndex = [cols[ndex] + htmlNdex]
+			possColMoves = trackingArray[colIndex]
 
-	
 
-let rookMoves=[possColMoves,possRowMoves]
-let rookIndex=[colIndex,rowIndex]
-for (r in rookIndex){
-	let cellTest=cells[rookIndex[r]]
-	console.log(cellTest+ ' cellTst')
 
-if(cellTest != undefined){
-	
-cellTest.addEventListener('click', () => {
-		cellTest.innerHTML=" "
+			let rookMoves = [possColMoves, possRowMoves]
+			let rookIndex = [colIndex, rowIndex]
+			for (r in rookIndex) {
+				let cellTest = cells[rookIndex[r]]
 
-		cellTest.appendChild(chessSquare)
+				if (cellTest != undefined) {
 
-		trackingArray[htmlNdex] = { id: null }
-		trackingArray[rookIndex[r]] = { id: chessSquareID }
-})
+					cellTest.addEventListener('click', () => {
+						cellTest.innerHTML = " "
+
+						cellTest.appendChild(chessSquare)
+
+						trackingArray[htmlNdex] = { id: null }
+						trackingArray[rookIndex[r]] = { id: chessSquareID }
+					})
+
+
+				}
+
+
+
+			}
+		}
+
+
+	}
+
 
 
 }
 
 
 
-}
-}
-
-	
-}
-// USE THESE TO MOVE ROOK!!!!!!
-
-
-}
-
-
-		
-		
-
-
-
-
-	
-	
-
-
-
-	//Gets the pieces on the squares and the null spaces
-	// use TrackArrIndex to compare to cell
-
- /* if (rookMove.id === null) {
-
-		(cells[]).addEventListener('click', () => {
-			cells[rookMove.id].innerHTML = ""
-			cells[rookMove.id].appendChild(chessSquare)
-
-			trackingArray[htmlNdex] = { id: null }
-			trackingArray[rookMove.id] = { id: chessSquareID }
-
-		})
-
-
-	}*/
-
-
-
-
-
-// If rows and cols are illegal to move to// 
-// Will make this the first function roo
-
-
-
-
-
-
-
-
-
-
-
-/// Main Variables
 
 
 function knight(chessSquareID, chessSquare,
 	htmlNdex, rowLimit, colLimit) {
+	console.log(chessSquareID, chessSquare,
+		htmlNdex)
+	// places knight can move
+	let knightMoves = [15, 17, 10, 6, -6, -10, -15, -17]
+	// iterates through knightMoves and correlates wuth trackingArray index and Cells index
+	for (k in knightMoves) {
+		let knightIndex = Number(knightMoves[k] + htmlNdex)
+
+		let knightRider = trackingArray[knightIndex]
+
+		let knightRiderCell = cells[knightIndex]
+
+		console.log(knightRider, knightRiderCell)
+
+		for (kn in knightRiderCell) {
+
+			knightRiderCell.addEventListener('click', () => {
+				knightRiderCell.innerHTML = " "
+
+				knightRiderCell.appendChild(chessSquare)
+
+				trackingArray[htmlNdex] = { id: null }
+				trackingArray[knightIndex] = { id: chessSquareID }
+			})
+
+		}
+
+	}
+
+
 
 }
 function bishop(chessSquareID, chessSquare,
 	htmlNdex, rowLimit, colLimit) {
+	console.log(chessSquareID, chessSquare,
+		htmlNdex)
+	// places knight can move
+	let bishopMove = [7, 14, 21, 28, 35, 42, 49, -7, -14, -21, -28, -35, -42, -49,
+		9, 18, 27, 36, 45, 54, 63, -9, -18, -27, -36, -45, -54, -63]
+	// iterates through knightMoves and correlates wuth trackingArray index and Cells index
+	for (b in bishopMove) {
+		let bIndex = Number(bishopMove[b] + htmlNdex)
+
+		let bRider = trackingArray[bIndex]
+
+		let bRiderCell = cells[bIndex]
+
+		console.log(bRider, bRiderCell)
+
+		for (bi in bRiderCell) {
+
+			bRiderCell.addEventListener('click', () => {
+				bRiderCell.innerHTML = " "
+
+				bRiderCell.appendChild(chessSquare)
+
+				trackingArray[htmlNdex] = { id: null }
+				trackingArray[bIndex] = { id: chessSquareID }
+			})
+
+		}
+
+	}
+
+
 
 }
+
 function queen(chessSquareID, chessSquare,
 	htmlNdex, rowLimit, colLimit) {
+
+	console.log(chessSquareID, chessSquare, htmlNdex)
+
+	let queenMove = [7, 14, 21, 28, 35, 42, 49, -7, -14, -21, -28, -35, -42, -49,
+		9, 18, 27, 36, 45, 54, 63, -9, -18, -27, -36, -45, -54, -63,
+		-7, -6, -5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6, 7,
+		8, 16, 24, 32, 40, 48, 56, -8, -16, -24, -32, -40, -48, -56]
+
+	for (q in queenMove) {
+		let qIndex = Number(queenMove[q] + htmlNdex)
+
+		let qRider = trackingArray[qIndex]
+
+		let qRiderCell = cells[qIndex]
+
+		console.log(qRider, qRiderCell)
+
+		for (q in qRiderCell) {
+
+			qRiderCell.addEventListener('click', () => {
+				qRiderCell.innerHTML = " "
+
+				qRiderCell.appendChild(chessSquare)
+
+				trackingArray[htmlNdex] = { id: null }
+				trackingArray[qIndex] = { id: chessSquareID }
+			})
+
+		}
+
+	}
+
 
 }
 
 function king(chessSquareID, chessSquare,
 	htmlNdex, rowLimit, colLimit) {
+	console.log(chessSquareID, chessSquare,
+		htmlNdex)
+
+	let kingMove = [1, 7, 8, 9, -1, -7, -8, -9]
+
+	for (b in kingMove) {
+		let kIndex = Number(kingMove[b] + htmlNdex)
+
+		let kRider = trackingArray[kIndex]
+
+		let kRiderCell = cells[kIndex]
+
+		console.log(kRider, kRiderCell)
+
+		for (bi in kRiderCell) {
+
+			kRiderCell.addEventListener('click', () => {
+				kRiderCell.innerHTML = " "
+
+				kRiderCell.appendChild(chessSquare)
+
+				trackingArray[htmlNdex] = { id: null }
+				trackingArray[kIndex] = { id: chessSquareID }
+			})
+
+		}
+
+	}
+
 
 }
 
