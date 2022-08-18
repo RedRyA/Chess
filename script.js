@@ -173,23 +173,28 @@ function pawn(chessSquareID, chessSquare, htmlNdex, rowLimit, colLimit) {
 	pawnMove = [8]
 	// Sets move and attack rules for black pawn
 for (p in pawnMove) {
-		let pIndex = Number(pawnMove[p] + htmlNdex)
 
-		let pRider = trackingArray[pIndex]
+		let  pawnIndex = Number(pawnMove[p] + htmlNdex)
+		let pawnTrackArr = trackingArray[pawnIndex]
+		let pawnCell = cells[pawnIndex]
+		console.log(pawnCell['id'] +' pawnCell')
+		console.log(pawnTrackArr['id'] +' track array')
+		for ( i in pawnTrackArr['id']){
+			if (pawnTrackArr['id'][i] !=null){
+				console.log("Can't move here ")
+				pawnCell=0
+				console.log(pawnMove)
+			}
+		}
+		for (p in pawnCell) {
 
-		let pRiderCell = cells[pIndex]
+			pawnCell.addEventListener('click', () => {
+				pawnCell.innerHTML = " "
 
-		console.log(pRider, pRiderCell)
-
-		for (p in pRiderCell) {
-
-			pRiderCell.addEventListener('click', () => {
-				pRiderCell.innerHTML = " "
-
-				pRiderCell.appendChild(chessSquare)
+				pawnCell.appendChild(chessSquare)
 
 				trackingArray[htmlNdex] = { id: null }
-				trackingArray[pIndex] = { id: chessSquareID }
+				trackingArray[pawnIndex] = { id: chessSquareID }
 			})
 
 		}
@@ -214,39 +219,46 @@ var blackMoveTwo = {
 
 
 			})
-		
+		}
 
 	possAttack = [7,9]
 
 			for (p in possAttack) {
-				let pAttackIndex = Number(possAttack[p] + htmlNdex)
+				let pawnAttackIndex = Number(possAttack[p] + htmlNdex)
+				let pawnAttackTrackArr = trackingArray[pawnAttackIndex]
+				
+				let pawnAttackCell = cells[pawnAttackIndex]
 
-				let pAttackRider = trackingArray[pAttackIndex]
 
-				let pAttackRiderCell = cells[pAttackIndex]
+				for (i in pawnAttackTrackArr){
+					for (p in pawnAttackCell) {
+					console.log(pawnAttackTrackArr[i][1] +" PAA!!")
+					if (pawnAttackTrackArr[i]===null){
+						pawnAttackCell[i]=0
+					}
+					else if( pawnAttackTrackArr[i][1]==="k"){
+							console.log('Check')
+						pawnAttackCell=0
 
-				console.log(pAttackRider, pAttackRiderCell)
-				for (i in pAttackRider){
-					console.log(pAttackRider[i]+' Attack')
-				}
-			
-				for (p in pAttackRiderCell) {
+						}else{
+					
+				
 
-					pAttackRiderCell.addEventListener('click', () => {
-						pAttackRiderCell.innerHTML = " "
+					pawnAttackCell.addEventListener('click', () => {
+						pawnAttackCell.innerHTML = " "
 
-						pAttackRiderCell.appendChild(chessSquare)
+						pawnAttackCell.appendChild(chessSquare)
 
 						trackingArray[htmlNdex] = { id: null }
-						trackingArray[pAttackIndex] = { id: chessSquareID }
+						trackingArray[pawnAttackIndex] = { id: chessSquareID }
 					})
 
 				}
 
 			}
 		
-
-
+		}
+	}
 
 		/*	cells[attack].addEventListener('click', () => {
 				cells[attack].innerHTML = ""
@@ -276,7 +288,6 @@ var blackMoveTwo = {
 
 
 
-}
 
 
 }
